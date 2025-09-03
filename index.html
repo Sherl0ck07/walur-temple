@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Temple Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #ff8800 0%, #fff3e0 100%);
+    }
+    body {
+      height: 100vh;
+      overflow: hidden;
+    }
+    main {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+    section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
+      box-sizing: border-box;
+      width: 100vw;
+      padding: 0;
+      background: linear-gradient(135deg, #ffa726 0%, #fffde7 100%);
+    }
+    .section-content {
+  background: rgba(255, 236, 179, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(255,152,0,0.18);
+  max-width: 1200px;   /* was 800px */
+  width: 95vw;         /* was 90vw */
+  padding: 40px 32px;  /* give more breathing space */
+  text-align: center;
+    }
+    h1, h2 { color: #e65100; }
+    .slideshow-container {
+      position: relative;
+      width: 420px;
+      max-width: 92vw;
+      height: 250px;
+      margin: 0 auto 22px auto;
+      overflow: hidden;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(230, 81, 0, 0.13);
+      background: #fff8e1;
+    }
+    .slide-img {
+      display: none;
+      position: absolute;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .active-slide {
+      display: block;
+      animation: fadein 1s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .slide-dots {
+      text-align: center;
+      margin: 10px 0 0 0;
+    }
+    .dot {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ff9800;
+      margin: 0 3px;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .dot.active { opacity: 1; background: #e65100; }
+.page-header, .page-footer {
+  width: 100%;
+  background: linear-gradient(90deg,#fffde7 0%,#ffa726 80%);
+  color: #e65100;
+  text-align: center;
+  /* position: fixed;  ❌ remove this */
+  left: 0;
+  z-index: 2;
+  display: block;
+}
+.page-header {
+  width: 100%;
+  background: linear-gradient(90deg,#fffde7 0%,#ffa726 80%);
+  color: #e65100;
+  text-align: center;
+  padding: 32px 0 20px;
+  border-bottom: 3px solid #ffb300;
+}
+
+.page-footer {
+  width: 100%;
+  background: linear-gradient(90deg,#fffde7 0%,#ffa726 80%);
+  color: #e65100;
+  text-align: center;
+  padding: 18px 0;
+  border-top: 3px solid #ffb300;
+  height: auto;   /* prevent extra gap */
+}
+.page-header, .page-footer {
+  scroll-snap-align: start;
+  height: auto;
+}
+    form { display: grid; gap: 16px; margin: 0 auto; max-width: 360px; }
+    label { font-weight: bold; color: #e65100;}
+    input, textarea {
+      border-radius: 6px;
+      border: 1px solid #ff9800;
+      padding: 9px;
+      font-size: 1em;
+    }
+    button {
+      background:#f57c00;
+      color:#fff;
+      border:none;
+      padding:10px 20px;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:1em;
+      margin-top:10px;
+    }
+    /* Responsive Design */
+    @media (max-width: 620px) {
+      .section-content { padding: 14px 4vw; }
+      .slideshow-container { height: 150px; width: 98vw;}
+      form { max-width: 95vw; }
+    }
+    #gallery {
+  height: 100vh;
+  background: linear-gradient(135deg, #ffcc80 0%, #fff3e0 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.gallery-content {
+  width: 95vw;        /* was 90vw */
+  max-width: 1400px;  /* ensures it grows nicely on desktops */
+  height: 90vh;
+  background: rgba(255, 238, 180, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(255, 152, 0, 0.25);
+  padding: 40px;      /* increased padding for balance */
+}
+.slideshow-container {
+  width: 100%;
+  max-width: 1200px;  /* was 420px */
+  height: 60vh;
+  margin: 0 auto 22px auto;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+  display: none;
+}
+
+.active-slide {
+  display: block;
+  animation: fadein 1s ease-in;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #bf360c;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+p {
+  font-size: 1.25rem;
+  color: #d84315;
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .gallery-content {
+    height: 85vh;
+    padding: 20px;
+  }
+  h1 {
+    font-size: 1.9rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  .slideshow-container {
+    height: 45vh;
+  }
+}
+
+  </style>
+</head>
+<body>
+    
+  <main>
+    <div class="page-header">
+        <h2>Welcome to Our Temple</h2>
+      </div>
+    <!-- Gallery Slide Show Section -->
+    <section id="gallery">
+  <div class="section-content">
+    <div class="slideshow-container" id="slideshow"></div>
+    <div class="slide-dots" id="slideDots"></div>
+    <h1>Temple Program Gallery</h1>
+    <p>Memories of various temple events and poojas.</p>
+  </div>
+</section>
+
+    <!-- Home Banners Section -->
+    <section id="home">
+      
+      <div class="section-content" style="margin-top:80px;">
+        <h2>Home</h2>
+        <p><strong>1st Banner:</strong> Temple / God Photo / <a href="#donate">Donation Page</a></p>
+        <p><strong>2nd Banner:</strong> About temple - spreading peace and devotion.</p>
+        <p><strong>3rd Banner:</strong> <a href="#donate">Donation</a>, Pooja Booking.</p>
+    <h2>Home</h2>
+        <p><strong>1st Banner:</strong> Temple / God Photo / <a href="#donate">Donation Page</a></p>
+        <p><strong>2nd Banner:</strong> About temple - spreading peace and devotion.</p>
+        <p><strong>3rd Banner:</strong> <a href="#donate">Donation</a>, Pooja Booking.</p>
+        
+    </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section id="donate">
+      <div class="section-content">
+        <h2>Donation & Pooja Booking</h2>
+        <p>Your generous donations support temple activities and maintenance.</p>
+        <button onclick="alert('Donation functionality coming soon.')">Donate Now</button>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history">
+      <div class="section-content">
+        <h2>Temple History</h2>
+        <p>Learn about the temple's establishment and the inspiring story behind its building and growth, preserving sacred traditions and uplifting the community for generations.</p>
+      </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+      <div class="section-content">
+        <h2>Contact Us</h2>
+        <form>
+          <label>Email:</label>
+          <input type="email" required>
+          <label>WhatsApp:</label>
+          <input type="text" required placeholder="+91-...">
+          <label>Your Message:</label>
+          <textarea rows="3" required></textarea>
+          <button type="submit">Send</button>
+        </form>
+        <p>Temple Committee Contact: +91-1234567890</p>
+      </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section id="mission">
+      <div class="section-content">
+        <h2>Mission & Vision</h2>
+        <p><strong>Mission:</strong> To serve God and society with devotion and selflessness.</p>
+        <p><strong>Vision:</strong> To spread wisdom, preserve traditions, and inspire the community.</p>
+      </div>
+      
+    </section>
+    <div class="page-footer">
+        <p>&copy; 2025 Temple Name. All Rights Reserved.</p>
+      </div>
+  </main>
+<script>
+  // Load first 5 images dynamically from /imgs
+  const totalImages = 5;
+  const slideshow = document.getElementById("slideshow");
+  const dotsContainer = document.getElementById("slideDots");
+  let slides = [], dots = [];
+
+  for (let i = 1; i <= totalImages; i++) {
+    // create image element
+    let img = document.createElement("img");
+    img.src = `imgs/${i}.jpg`;
+    img.className = "slide-img" + (i === 1 ? " active-slide" : "");
+    slideshow.appendChild(img);
+    slides.push(img);
+
+    // create dots
+    let dot = document.createElement("span");
+    dot.className = "dot" + (i === 1 ? " active" : "");
+    dot.addEventListener("click", () => {
+      showSlide(i - 1);
+      resetTimer();
+    });
+    dotsContainer.appendChild(dot);
+    dots.push(dot);
+  }
+
+  let slideIndex = 0, timer;
+
+  function showSlide(idx) {
+    slides.forEach((slide,i) => {
+      slide.classList.toggle('active-slide', i === idx);
+      dots[i].classList.toggle('active', i === idx);
+    });
+    slideIndex = idx;
+  }
+
+  function nextSlide() {
+    let nextIdx = (slideIndex + 1) % slides.length;
+    showSlide(nextIdx);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(nextSlide, 2600);
+  }
+
+  resetTimer();
+
+  // Contact form fake submit
+  document.querySelector('form').onsubmit = function(e) {
+    e.preventDefault();
+    alert('Message sent successfully!');
+  };
+</script>
+
+</body>
+</html>
